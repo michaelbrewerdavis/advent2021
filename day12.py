@@ -62,7 +62,7 @@ start-XC
 at-LJ
 vt-JK'''
 
-inputreal = input0
+inputreal = inputy
 
 parsed = [row.split('-') for row in inputreal.splitlines()]
 
@@ -89,27 +89,28 @@ def allPaths(allowOneRepeat=False):
 
     while len(partialPaths) > 0:
         partial, usedRepeat = partialPaths.pop()
-        print("pop ", partial, usedRepeat)
+        # print("pop ", partial, usedRepeat)
         start = partial[0]
         nextCaves = adjacency[start]
         for c in nextCaves:
+            pathUsedRepeat = usedRepeat
             small = False
             if re.match('^[a-z]+$', c):
                 small = True
             if small and c in partial:
-                if usedRepeat or c == 'start' or c == 'end':
-                    print("skip", c)
+                if pathUsedRepeat or c == 'start' or c == 'end':
+                    # print("skip", c)
                     continue
                 else:
-                    print("usedRepeat", c)
-                    usedRepeat = True
+                    # print("usedRepeat", c)
+                    pathUsedRepeat = True
 
             newPath = [c, *partial]
             if c == 'start':
                 completePaths.append(newPath)
             else:
-                partialPaths.append((newPath, usedRepeat))
-                print("push", newPath, usedRepeat)
+                partialPaths.append((newPath, pathUsedRepeat))
+                # print("push", newPath, pathUsedRepeat)
     return completePaths
 
 

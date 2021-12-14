@@ -100,6 +100,9 @@ def step(s):
     return flash(s)
 
 
+def allFlashing(s):
+  return all(all(cell == 0 for cell in row) for row in s)
+
 totalFlashes = 0
 # for i in range(100):
 i = 0
@@ -107,6 +110,9 @@ while True:
     i += 1
     (state, numFlashes) = step(state)
     totalFlashes += numFlashes
+    if allFlashing(state):
+      print('sync at index', i)
+      break
 
 printSquare(state)
 print(totalFlashes)
